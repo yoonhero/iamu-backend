@@ -4,9 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon --exec node server.js"
   },
   "keywords": [],
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "apollo-server": "^3.3.0",
+    "graphql": "^15.5.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
 }
