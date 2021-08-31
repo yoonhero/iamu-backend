@@ -7,6 +7,7 @@ const typeDefs = gql`
   type Movie {
     title: String 
     year: Int
+    id: Int 
   }
 type Query {
   movies: [Movie]
