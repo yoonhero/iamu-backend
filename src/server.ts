@@ -15,25 +15,22 @@ const typeDefs = gql`
   }
   type Query {
     movies: [Movie]
-    movie: Movie
+    movie(id: Int!): Movie
   }
   type Mutation {
     createMovie(title: String!, year: Int!, genre:String): Movie
-    deleteMovie(title: String!): Boolean
+    deleteMovie(id: Int!): Movie
   }
 `;
 
 const resolvers = {
   Query: {
     movies: () => client.movie.findMany(),
-    movie: () => ({ title: "Hello", year: 2021 }),
+    movie: (_, {id}) => client.movie.findUnique({where:{id}}) ,
   },
   Mutation: {
     createMovie: (_, { title, year, genre }) => client.movie.create({data: { title, year, genre}}),
-    deleteMovie: (_, args) => {
-      console.log(args);
-      return true;
-    },
+    deleteMovie: (_, {id}) => client.movie.delete({where:{id}})
   },
 };
 
@@ -43,7 +40,7 @@ const server = new ApolloServer({
   plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
   context: async ({req}) => {
     return {
-      client: client 
+      client: client
     }
   }
 });
