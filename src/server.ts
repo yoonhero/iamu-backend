@@ -1,23 +1,46 @@
 require("dotenv").config()
-import { ApolloServer, gql } from "apollo-server";
-import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
+import { ApolloServer } from 'apollo-server-express';
+import { ApolloServerPluginDrainHttpServer, ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import client from "./client";
 import {resolvers, typeDefs} from "./schema"
+import express from "express";
+import logger from "morgan";
+import http from "http";
+import { getUser } from "./users/users.utils";
 
-const server = new ApolloServer({
+async function startApolloServer(typeDefs, resolvers) {
+  const app = express();
+  const httpServer = http.createServer(app);
+
+  // new apollo server 
+  const apollo = new ApolloServer({
   resolvers,
   typeDefs,
   introspection: true,
-  plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
-  context: async ({req}) => {
-    return {
-      client: client
-    }
-  }
-});
+  plugins: [ApolloServerPluginLandingPageGraphQLPlayground(),ApolloServerPluginDrainHttpServer({ httpServer })],
+  context: async (ctx) => {
+    if (ctx.req) {
+      return {
+        loggedInUser: await getUser(ctx.req.headers.token),
+        client,
+      };
+    } 
+    },
+  });
 
-const PORT = process.env.PORT;
+  const PORT = process.env.PORT;
 
-server
-  .listen(PORT)
-  .then(() => console.log(`Great Flight is running on http://localhost:${PORT}/`));
+  app.use(logger("tiny"));
+
+  // start server and apply app middleware
+  await apollo.start();
+  apollo.applyMiddleware({ app });
+
+  // set upload folder
+  app.use("/static", express.static("uploads"));
+  await new Promise(resolve => httpServer.listen({ port: PORT }, resolve));
+
+  console.log(`🚀 Great Flight is running on http://localhost:${PORT}${apollo.graphqlPath}`);
+}
+
+startApolloServer(typeDefs, resolvers)

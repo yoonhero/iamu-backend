@@ -1,3 +1,4 @@
+// type User isMe field is filled automatically
 export default {
   User: {
     isMe: ({ id }, _, { loggedInUser }) => {

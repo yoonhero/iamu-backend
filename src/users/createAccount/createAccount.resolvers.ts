@@ -1,11 +1,12 @@
 import bcrypt from "bcrypt";
-import client from "../../client";
+import { Resolvers } from "../../types";
 
-export default {
-  Mutation: {
-    createAccount: async (
+const resolvers: Resolvers = {
+   Mutation: {
+    createAccount: async(
       _,
-      { firstName, lastName, username, email, password }:{firstName:string, lastName:string, username:string, email:string, password:string }
+      { firstName, lastName, username, email, password },
+      {client}
     ) => {
       try {
         // check if username or email are already on DB.
@@ -32,7 +33,7 @@ export default {
         // this will be punished by the police
         const uglyPassword = await bcrypt.hash(password, 10);
 
-        // create server 
+        // create new User 
         await client.user.create({
           data: {
             username,
@@ -53,6 +54,8 @@ export default {
           error: "Can't create account.",
         };
       }
-    },
-  },
-};
+    }
+  }
+}
+
+export default resolvers 

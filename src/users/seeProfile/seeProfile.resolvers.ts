@@ -1,12 +1,13 @@
-import client from "../../client";
+import { Resolvers } from "../../types"
 
-export default {
+const resolvers:Resolvers = {
     Query: {
-        seeProfile: (_, { username }) => client.user.findUnique({
+      // .findUnique find specific Val using where 
+        seeProfile: (_, { username }, { client}) => client.user.findUnique({
             where: {
                 username,
             },
-            // load all user
+            // include all follower and following User
             include: {
                 following: true,
                 followers: true,
@@ -14,3 +15,5 @@ export default {
         }),
     },
 };
+
+export default resolvers 

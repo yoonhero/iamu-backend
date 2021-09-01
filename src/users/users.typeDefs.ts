@@ -1,5 +1,6 @@
 import { gql } from "apollo-server";
 
+// global type User 
 export default gql`
   type User {
     id: Int!
