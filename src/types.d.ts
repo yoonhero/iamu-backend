@@ -1,7 +1,7 @@
-import { Movie, PrismaClient } from "@prisma/client"
+import {  PrismaClient } from "@prisma/client"
 
+// loggedInUser?: Movie;
 type Context = {
-  loggedInUser?: Movie;
   client?: PrismaClient;
 }
 // client?: client; 

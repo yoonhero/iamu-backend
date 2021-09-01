@@ -1,43 +1,43 @@
-# IAMU Backend 
+# IAMU Backend
 
 ## Introduction
 
-This is the Next Generation of the TikTok. 
+This is the Next Generation of the TikTok.
 
+Made by Yoonhero
 
-Made by Yoonhero 
+---
 
---- 
+## Todos
 
-## Todos 
+### User
 
-### User 
-
-- User Login 
-- User Create 
-- Email Verification 
-- User Profile
-- User Find 
-- User Edit Profile 
-- Me 
+- User Create
+- See User Profile
+- User Login
+- Email Verification
+- User Find
+- User Edit Profile
+- Subscribe & Unsubscribe
+- Change Avatar
+- Me
 - Social Login (Apple, Google, Facebook, Kakao)
-- Geust Mode 
+- Geust Mode
 
 ### Video
 
-- Upload Video 
+- Upload Video
 - Video Edit
-- Video Comment 
-- Video Like & Unlike 
+- Video Comment
+- Video Like & Unlike
 - Video Processing
-- HashTag 
-- Find Video 
+- HashTag
+- Find Video
 
 ### Others
 
 ### AI
 
 - Video Recommend
-- Create Thumbnail 
-- CopyRight 
-
+- Create Thumbnail
+- CopyRight
