@@ -1,9 +1,8 @@
-import { Movie } from "@prisma/client"
-import client from "./client"
+import { Movie, PrismaClient } from "@prisma/client"
 
 type Context = {
   loggedInUser?: Movie;
-  client?: client;
+  client?: PrismaClient;
 }
 // client?: client; 
 
