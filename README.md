@@ -19,7 +19,7 @@ Made by Yoonhero
 - Search User ✅
 - User Edit Profile ✅
 - Subscribe & Unsubscribe
-- Change Avatar
+- Change Avatar ✅
 - Me
 - Social Login (Apple, Google, Facebook, Kakao)
 - Geust Mode
