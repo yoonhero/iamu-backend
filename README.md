@@ -16,8 +16,8 @@ Made by Yoonhero
 - See User Profile ✅
 - User Login ✅
 - Email Verification ✅
-- User Find
-- User Edit Profile
+- Search User ✅
+- User Edit Profile ✅
 - Subscribe & Unsubscribe
 - Change Avatar
 - Me

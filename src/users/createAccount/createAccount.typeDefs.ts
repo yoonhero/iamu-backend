@@ -1,6 +1,6 @@
 import { gql } from "apollo-server";
 
-// createAccount Arguments and Return Val 
+// createAccount Arguments and Return Val
 export default gql`
   type Mutation {
     createAccount(
@@ -11,4 +11,4 @@ export default gql`
       password: String!
     ): MutationResponse
   }
-`
+`;
