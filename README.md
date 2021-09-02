@@ -18,9 +18,9 @@ Made by Yoonhero
 - Email Verification ✅
 - Search User ✅
 - User Edit Profile ✅
-- Subscribe & Unsubscribe
+- Follow & UnFollow ✅
 - Change Avatar ✅
-- Me
+- Me ✅
 - Social Login (Apple, Google, Facebook, Kakao)
 - Geust Mode
 
