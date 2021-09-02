@@ -16,7 +16,7 @@ model User {
   lastName  String?
   username  String   @unique
   email     String   @unique
-  activate  Boolean  @default(false)
+  activate  Boolean
   password  String
   bio       String?
   avatar    String?
