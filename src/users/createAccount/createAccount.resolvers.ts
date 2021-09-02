@@ -41,6 +41,7 @@ const resolvers: Resolvers = {
             firstName,
             lastName,
             password: uglyPassword,
+            activate: false,
           },
         });
 

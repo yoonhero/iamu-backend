@@ -13,5 +13,6 @@ export default gql`
     bio: String
     avatar: String
     isMe: Boolean!
+    activate: Boolean!
   }
 `;
