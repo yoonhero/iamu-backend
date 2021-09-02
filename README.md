@@ -14,8 +14,8 @@ Made by Yoonhero
 
 - User Create ✅
 - See User Profile ✅
-- User Login
-- Email Verification
+- User Login ✅
+- Email Verification ✅
 - User Find
 - User Edit Profile
 - Subscribe & Unsubscribe
