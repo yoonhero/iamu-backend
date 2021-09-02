@@ -12,8 +12,8 @@ Made by Yoonhero
 
 ### User
 
-- User Create
-- See User Profile
+- User Create ✅
+- See User Profile ✅
 - User Login
 - Email Verification
 - User Find
