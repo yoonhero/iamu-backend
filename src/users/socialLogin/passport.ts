@@ -48,7 +48,6 @@ passport.use(
   )
 );
 
-// promisified authenticate functions
 export const authenticateFacebook = (req, res) =>
   new Promise((resolve, reject) => {
     passport.authenticate(

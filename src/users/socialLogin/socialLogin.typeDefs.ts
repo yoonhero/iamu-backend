@@ -1,6 +1,6 @@
 import { gql } from "apollo-server";
 
-module.exports = gql`
+export default gql`
   type AuthResponse {
     ok: Boolean
     error: String
