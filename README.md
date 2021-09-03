@@ -22,7 +22,7 @@ Made by Yoonhero
 - Change Avatar ✅
 - Me ✅
 - Social Login (Apple 💰 , Google ✅ , Facebook ✅ , Kakao 😇)
-- Geust Mode 🙏🏻
+- Guest Mode 🙏🏻
 
 ### Video
 
