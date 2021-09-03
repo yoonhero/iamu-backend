@@ -18,8 +18,8 @@ const FacebookTokenStrategyCallback = (
 passport.use(
   new FacebookTokenStrategy(
     {
-      clientID: "your-facebook-app-id",
-      clientSecret: "your-facebook-app-secret",
+      clientID: process.env.FACEBOOK_CLIENT_ID,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
     },
     FacebookTokenStrategyCallback
   )
@@ -41,15 +41,15 @@ const GoogleTokenStrategyCallback = (
 passport.use(
   new GoogleTokenStrategy(
     {
-      clientID: "your-google-client-id",
-      clientSecret: "your-google-client-secret",
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     },
     GoogleTokenStrategyCallback
   )
 );
 
 // promisified authenticate functions
-const authenticateFacebook = (req, res) =>
+export const authenticateFacebook = (req, res) =>
   new Promise((resolve, reject) => {
     passport.authenticate(
       "facebook-token",

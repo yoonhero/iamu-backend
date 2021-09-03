@@ -2,8 +2,8 @@ import { gql } from "apollo-server";
 
 module.exports = gql`
   type AuthResponse {
-    token: String
-    name: String
+    ok: Boolean
+    error: String
   }
   input AuthInput {
     accessToken: String!

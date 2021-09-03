@@ -1,47 +1,99 @@
 import { Resolvers } from "../../types";
 const { authenticateFacebook, authenticateGoogle } = require("./passport");
+import bcrypt from "bcrypt";
 
 const resolvers: Resolvers = {
-  Query: {
-    hello: () => "world",
-  },
   Mutation: {
-    authFacebook: async (_, { input: { accessToken } }, { req, res }) => {
+    authFacebook: async (
+      _,
+      { input: { accessToken } },
+      { req, res, client }
+    ) => {
       req.body = {
         ...req.body,
         access_token: accessToken,
       };
-
       try {
         // data contains the accessToken, refreshToken and profile from passport
         const { data, info } = await authenticateFacebook(req, res);
 
+        // if authenicate success
         if (data) {
-          console.log(data);
+          const {
+            accessToken,
+            profile: { displayName, _json },
+          } = data;
 
-          // if (user) {
-          //   return ({
-          //     name: user.name,
-          //     token: user.generateJWT(),
-          //   });
-          // }
+          // check if username or email are already on DB.
+          const existingUser = await client.user.findFirst({
+            where: {
+              OR: [
+                {
+                  username: displayName,
+                },
+                {
+                  email: _json.email,
+                },
+              ],
+            },
+          });
+
+          // if user exist
+          if (existingUser) {
+            return {
+              error: "This username/email is already taken.",
+              ok: false,
+            };
+          }
+
+          // hash password
+          // save password like original text "1234"
+          // this will be punished by the police
+          const uglyPassword = await bcrypt.hash(accessToken, 10);
+
+          // create new User
+          await client.user.create({
+            data: {
+              username: displayName,
+              email: _json?.email,
+              firstName: _json?.firstName ? _json?.firstName : displayName,
+              lastName: _json?.lastName,
+              password: uglyPassword,
+              activate: false,
+            },
+          });
+
+          return {
+            ok: true,
+          };
         }
 
         if (info) {
-          console.log(info);
           switch (info.code) {
             case "ETIMEDOUT":
-              return new Error("Failed to reach Facebook: Try Again");
+              return {
+                ok: false,
+                error: "Can't reach to FaceBook.",
+              };
             default:
-              return new Error("something went wrong");
+              return {
+                ok: false,
+                error: "Internal Server Problem...",
+              };
           }
         }
-        return Error("server error");
+        return {
+          ok: false,
+          error: "Internal Server Problem...",
+        };
       } catch (error) {
-        return error;
+        return {
+          ok: false,
+          error,
+        };
       }
     },
-    authGoogle: async (_, { input: { accessToken } }, { req, res }) => {
+    authGoogle: async (_, { input: { accessToken } }, { req, res, client }) => {
       req.body = {
         ...req.body,
         access_token: accessToken,
@@ -52,27 +104,78 @@ const resolvers: Resolvers = {
         const { data, info } = await authenticateGoogle(req, res);
 
         if (data) {
-          console.log(data);
-          // if (user) {
-          //   return ({
-          //     name: user.name,
-          //     token: user.generateJWT(),
-          //   });
-          // }
+          const {
+            accessToken,
+            profile: { displayName, _json },
+          } = data;
+          // check if username or email are already on DB.
+          const existingUser = await client.user.findFirst({
+            where: {
+              OR: [
+                {
+                  username: displayName,
+                },
+                {
+                  email: _json.email,
+                },
+              ],
+            },
+          });
+
+          // if user exist
+          if (existingUser) {
+            return {
+              error: "This username/email is already taken.",
+              ok: false,
+            };
+          }
+
+          // hash password
+          // save password like original text "1234"
+          // this will be punished by the police
+          const uglyPassword = await bcrypt.hash(accessToken, 10);
+
+          // create new User
+          await client.user.create({
+            data: {
+              username: displayName,
+              email: _json?.email,
+              firstName: _json?.firstName ? _json?.firstName : displayName,
+              lastName: _json?.lastName,
+              password: uglyPassword,
+              activate: false,
+            },
+          });
+
+          return {
+            ok: true,
+          };
         }
 
         if (info) {
           console.log(info);
           switch (info.code) {
             case "ETIMEDOUT":
-              return new Error("Failed to reach Google: Try Again");
+              return {
+                ok: false,
+                error: "Can't reach to Google...",
+              };
             default:
-              return new Error("something went wrong");
+              return {
+                ok: false,
+                error: "Internal Server Problem...",
+              };
           }
         }
-        return Error("server error");
+        return {
+          ok: false,
+          error: "Internal Server Problem...",
+        };
       } catch (error) {
-        return error;
+        return {
+          ok: false,
+          error,
+        };
       }
     },
   },

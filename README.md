@@ -10,7 +10,7 @@ Made by Yoonhero
 
 ## Todos
 
-### User
+### User ✅
 
 - User Create ✅
 - See User Profile ✅
@@ -21,8 +21,8 @@ Made by Yoonhero
 - Follow & UnFollow ✅
 - Change Avatar ✅
 - Me ✅
-- Social Login (Apple, Google, Facebook, Kakao)
-- Geust Mode
+- Social Login (Apple 💰 , Google ✅ , Facebook ✅ , Kakao 😇)
+- Geust Mode 🙏🏻
 
 ### Video
 

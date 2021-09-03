@@ -30,6 +30,8 @@ async function startApolloServer(typeDefs, resolvers) {
         return {
           loggedInUser: await getUser(ctx.req.headers.token),
           client,
+          req: ctx.req,
+          res: ctx.res,
         };
       }
     },
